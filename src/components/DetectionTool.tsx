@@ -7,7 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 
 interface DetectionResults {
   shipCount?: number;
-  detectionProbabilities?: Array<{ id: number; confidence: number }>;
+  detectionProbabilities?: number[];
   processedImageUrl?: string;
 }
 
@@ -78,32 +78,79 @@ const DetectionTool = () => {
     }
 
     setIsProcessing(true);
+    setResults(null);
     
-    // Simulate AI processing
-    await new Promise(resolve => setTimeout(resolve, 3000));
-    
-    // Mock results
-    const mockResults: DetectionResults = {};
-    if (outputOptions.shipCount) {
-      mockResults.shipCount = Math.floor(Math.random() * 15) + 1;
+    try {
+      // Prepare form data for FastAPI
+      const formData = new FormData();
+      formData.append('file', uploadedFile);
+      
+      // Map frontend options to backend Spanish option names
+      const backendOptions: string[] = [];
+      if (outputOptions.shipCount) {
+        backendOptions.push('Número de Barcos');
+      }
+      if (outputOptions.detectionProbability) {
+        backendOptions.push('Probabilidades de Detección');
+      }
+      if (outputOptions.processedImage) {
+        backendOptions.push('Imagen con Detecciones');
+      }
+      
+      // Add each option as a separate form field (FastAPI expects List[str])
+      backendOptions.forEach(option => {
+        formData.append('options', option);
+      });
+      
+      // Make API call to Python backend
+      const response = await fetch('http://localhost:8000/predict/', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      if (!response.ok) {
+        throw new Error(`API Error: ${response.status} ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      
+      // Handle error response from backend
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
+      // Map backend response to frontend format
+      const apiResults: DetectionResults = {};
+      
+      if (data.count_result !== undefined) {
+        apiResults.shipCount = data.count_result;
+      }
+      
+      if (data.probabilities_result) {
+        apiResults.detectionProbabilities = data.probabilities_result;
+      }
+      
+      if (data.image_result) {
+        apiResults.processedImageUrl = `data:image/jpeg;base64,${data.image_result}`;
+      }
+      
+      setResults(apiResults);
+      
+      toast({
+        title: "Analysis complete",
+        description: "Ship detection analysis finished successfully",
+      });
+      
+    } catch (error) {
+      console.error('Error processing image:', error);
+      toast({
+        title: "Analysis failed",
+        description: error instanceof Error ? error.message : 'Unknown error occurred',
+        variant: "destructive",
+      });
+    } finally {
+      setIsProcessing(false);
     }
-    if (outputOptions.detectionProbability) {
-      mockResults.detectionProbabilities = Array.from({ length: 5 }, (_, i) => ({
-        id: i + 1,
-        confidence: Math.round((Math.random() * 0.4 + 0.6) * 100) / 100
-      }));
-    }
-    if (outputOptions.processedImage) {
-      mockResults.processedImageUrl = uploadedImageUrl; // In real app, this would be the processed image
-    }
-
-    setResults(mockResults);
-    setIsProcessing(false);
-    
-    toast({
-      title: "Analysis complete",
-      description: "Ship detection analysis finished successfully",
-    });
   };
 
   return (
@@ -297,9 +344,9 @@ const DetectionTool = () => {
                   {results.detectionProbabilities && (
                     <div className="space-y-2">
                       <p className="font-medium text-accent">Detection Probabilities:</p>
-                      {results.detectionProbabilities.map((detection) => (
-                        <div key={detection.id} className="bg-secondary/50 p-2 rounded text-sm">
-                          Ship {detection.id}: {(detection.confidence * 100).toFixed(1)}%
+                      {results.detectionProbabilities.map((confidence, index) => (
+                        <div key={index} className="bg-secondary/50 p-2 rounded text-sm">
+                          Ship {index + 1}: {(confidence * 100).toFixed(1)}%
                         </div>
                       ))}
                     </div>
