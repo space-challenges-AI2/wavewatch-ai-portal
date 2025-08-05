@@ -8,36 +8,36 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Disruptive Cyberpunk + Neon Theme */
-    --background: 0 0% 2%; /* Pure black */
-    --foreground: 0 0% 98%; /* Pure white */
+    /* Clean Sea & Space Light Theme */
+    --background: 210 100% 98%; /* Soft white */
+    --foreground: 220 30% 15%; /* Deep blue-gray */
 
-    --card: 340 100% 5%; /* Dark purple-black */
-    --card-foreground: 0 0% 98%;
+    --card: 210 100% 99%; /* Pure white cards */
+    --card-foreground: 220 30% 15%;
 
-    --popover: 340 100% 5%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 210 100% 99%;
+    --popover-foreground: 220 30% 15%;
 
-    --primary: 315 100% 60%; /* Electric magenta */
-    --primary-foreground: 0 0% 2%;
+    --primary: 205 85% 55%; /* Ocean blue */
+    --primary-foreground: 210 100% 98%;
 
-    --secondary: 270 100% 50%; /* Electric purple */
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 195 50% 88%; /* Light sky blue */
+    --secondary-foreground: 220 30% 15%;
 
-    --muted: 240 30% 8%;
-    --muted-foreground: 240 10% 60%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 220 20% 50%;
 
-    --accent: 60 100% 50%; /* Electric lime */
-    --accent-foreground: 0 0% 2%;
+    --accent: 185 75% 65%; /* Soft teal */
+    --accent-foreground: 220 30% 15%;
 
-    --destructive: 0 100% 50%; /* Pure red */
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 5 85% 60%;
+    --destructive-foreground: 210 100% 98%;
 
-    --border: 315 50% 20%;
-    --input: 340 80% 8%;
-    --ring: 315 100% 60%;
+    --border: 210 30% 90%;
+    --input: 210 40% 96%;
+    --ring: 205 85% 55%;
 
-    --radius: 1rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -104,195 +104,103 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 
-  /* Disruptive Cyberpunk Effects */
-  .cyber-gradient {
+  /* Clean Sea & Space Effects */
+  .ocean-gradient {
     background: linear-gradient(135deg, 
-      hsl(315 100% 10%), 
-      hsl(270 100% 5%), 
-      hsl(315 100% 15%), 
-      hsl(60 100% 10%));
-    background-size: 300% 300%;
-    animation: gradient-shift 8s ease infinite;
+      hsl(210 100% 98%), 
+      hsl(205 60% 92%), 
+      hsl(195 80% 88%));
   }
 
-  .neon-grid {
+  .space-gradient {
+    background: linear-gradient(180deg, 
+      hsl(210 100% 98%) 0%, 
+      hsl(205 40% 94%) 50%,
+      hsl(195 60% 90%) 100%);
+  }
+
+  .subtle-grid {
     background-image: 
-      linear-gradient(hsl(315 100% 60% / 0.3) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(315 100% 60% / 0.3) 1px, transparent 1px),
-      linear-gradient(hsl(60 100% 50% / 0.1) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(60 100% 50% / 0.1) 1px, transparent 1px);
-    background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
-    animation: grid-pulse 4s ease-in-out infinite;
+      linear-gradient(hsl(205 85% 55% / 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(205 85% 55% / 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
   }
 
-  .hologram-effect {
-    background: linear-gradient(90deg, 
-      transparent 0%, 
-      hsl(315 100% 60% / 0.1) 25%, 
-      hsl(60 100% 50% / 0.2) 50%, 
-      hsl(270 100% 50% / 0.1) 75%, 
-      transparent 100%);
-    background-size: 200% 100%;
-    animation: hologram-scan 3s linear infinite;
+  .floating-dots {
+    background-image: 
+      radial-gradient(circle at 25% 25%, hsl(185 75% 65% / 0.4) 2px, transparent 2px),
+      radial-gradient(circle at 75% 75%, hsl(205 85% 55% / 0.3) 1px, transparent 1px),
+      radial-gradient(circle at 50% 10%, hsl(195 50% 88% / 0.5) 1.5px, transparent 1.5px);
+    background-size: 120px 120px, 80px 80px, 160px 160px;
   }
 
-  .neon-glow {
+  .gentle-glow {
+    box-shadow: 0 4px 20px hsl(205 85% 55% / 0.15);
+  }
+
+  .soft-shadow {
     box-shadow: 
-      0 0 5px hsl(315 100% 60%),
-      0 0 10px hsl(315 100% 60%),
-      0 0 20px hsl(315 100% 60%),
-      0 0 40px hsl(315 100% 60%);
+      0 1px 3px hsl(220 30% 15% / 0.1),
+      0 4px 6px hsl(220 30% 15% / 0.05);
   }
 
-  .lime-glow {
-    box-shadow: 
-      0 0 5px hsl(60 100% 50%),
-      0 0 10px hsl(60 100% 50%),
-      0 0 20px hsl(60 100% 50%);
+  .clean-border {
+    border: 1px solid hsl(210 30% 90%);
   }
 
-  .glitch-text {
-    position: relative;
-    color: hsl(var(--foreground));
-    animation: glitch 2s infinite;
+  /* Subtle Animations */
+  @keyframes gentle-float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
   }
 
-  .glitch-text::before,
-  .glitch-text::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  @keyframes soft-pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
   }
 
-  .glitch-text::before {
-    animation: glitch-1 0.5s infinite;
-    color: hsl(315 100% 60%);
-    z-index: -1;
+  @keyframes subtle-scale {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
   }
 
-  .glitch-text::after {
-    animation: glitch-2 0.5s infinite;
-    color: hsl(60 100% 50%);
-    z-index: -2;
+  .animate-gentle-float {
+    animation: gentle-float 6s ease-in-out infinite;
   }
 
-  .floating-elements {
-    position: relative;
-    overflow: hidden;
+  .animate-soft-pulse {
+    animation: soft-pulse 3s ease-in-out infinite;
   }
 
-  .floating-elements::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: 
-      radial-gradient(circle at 20% 30%, hsl(315 100% 60% / 0.1) 2px, transparent 2px),
-      radial-gradient(circle at 80% 70%, hsl(60 100% 50% / 0.1) 1px, transparent 1px),
-      radial-gradient(circle at 40% 10%, hsl(270 100% 50% / 0.1) 1.5px, transparent 1.5px);
-    background-size: 100px 100px, 150px 150px, 80px 80px;
-    animation: float 20s linear infinite;
+  .animate-subtle-scale {
+    animation: subtle-scale 4s ease-in-out infinite;
   }
 
-  /* Keyframe Animations */
-  @keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  @keyframes grid-pulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.8; }
-  }
-
-  @keyframes hologram-scan {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-  }
-
-  @keyframes glitch {
-    0%, 90%, 100% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-  }
-
-  @keyframes glitch-1 {
-    0%, 90%, 100% { transform: translate(0); }
-    20% { transform: translate(2px, -2px); }
-    40% { transform: translate(-2px, 2px); }
-    60% { transform: translate(-2px, -2px); }
-    80% { transform: translate(2px, 2px); }
-  }
-
-  @keyframes glitch-2 {
-    0%, 90%, 100% { transform: translate(0); }
-    20% { transform: translate(-2px, -2px); }
-    40% { transform: translate(2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(-2px, 2px); }
-  }
-
-  @keyframes float {
-    0% { transform: translateY(0px) rotate(0deg); }
-    33% { transform: translateY(-20px) rotate(120deg); }
-    66% { transform: translateY(-10px) rotate(240deg); }
-    100% { transform: translateY(0px) rotate(360deg); }
-  }
-
-  @keyframes pulse-neon {
-    0%, 100% { 
-      box-shadow: 
-        0 0 5px hsl(315 100% 60%),
-        0 0 10px hsl(315 100% 60%),
-        0 0 20px hsl(315 100% 60%);
-    }
-    50% { 
-      box-shadow: 
-        0 0 10px hsl(315 100% 60%),
-        0 0 20px hsl(315 100% 60%),
-        0 0 40px hsl(315 100% 60%),
-        0 0 80px hsl(315 100% 60%);
-    }
-  }
-
-  .animate-neon-pulse {
-    animation: pulse-neon 2s ease-in-out infinite;
-  }
-
-  /* Interactive Hover Effects */
-  .cyber-card {
+  /* Clean Card Styles */
+  .clean-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
     transition: all 0.3s ease;
-    border: 1px solid hsl(315 50% 20%);
-    position: relative;
-    overflow: hidden;
   }
 
-  .cyber-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, hsl(315 100% 60% / 0.1), transparent);
-    transition: left 0.5s ease;
+  .clean-card:hover {
+    box-shadow: 0 8px 25px hsl(205 85% 55% / 0.15);
+    transform: translateY(-2px);
   }
 
-  .cyber-card:hover::before {
-    left: 100%;
+  /* Interactive Elements */
+  .interactive-button {
+    transition: all 0.2s ease;
+    border-radius: var(--radius);
   }
 
-  .cyber-card:hover {
-    border-color: hsl(315 100% 60%);
-    box-shadow: 0 0 20px hsl(315 100% 60% / 0.3);
-    transform: translateY(-5px);
+  .interactive-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsl(205 85% 55% / 0.25);
+  }
+
+  .interactive-button:active {
+    transform: translateY(0);
   }
 }

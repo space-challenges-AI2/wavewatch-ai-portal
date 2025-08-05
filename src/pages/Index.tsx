@@ -12,21 +12,21 @@ const Index = () => {
       <HeroSection />
       
       {/* Detection Tool Section */}
-      <section id="tool" className="py-20 cyber-gradient floating-elements">
-        <div className="absolute inset-0 neon-grid opacity-20"></div>
+      <section id="tool" className="py-24 space-gradient">
+        <div className="absolute inset-0 subtle-grid opacity-20"></div>
         <div className="container mx-auto relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-black text-foreground mb-6">
-              <span className="glitch-text text-primary" data-text="AI Detection">AI Detection</span>
-              <span className="text-accent"> Lab</span>
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-light text-foreground mb-6">
+              AI Detection <span className="text-primary font-medium">Laboratory</span>
             </h2>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Upload SAR imagery and witness our next-generation YOLO AI analyze maritime vessels 
-              with unprecedented precision and speed.
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-8">
+              Upload your Synthetic Aperture Radar imagery and experience our advanced 
+              neural network analyze maritime vessels with unparalleled precision.
             </p>
-            <div className="flex justify-center mt-8">
-              <div className="px-6 py-2 bg-accent/20 border border-accent rounded-full text-accent font-mono text-sm">
-                STATUS: ONLINE • NEURAL NETWORK ACTIVE
+            <div className="flex justify-center">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/20 rounded-full text-accent text-sm">
+                <div className="w-2 h-2 bg-accent rounded-full animate-soft-pulse"></div>
+                System Online • Neural Network Active
               </div>
             </div>
           </div>
