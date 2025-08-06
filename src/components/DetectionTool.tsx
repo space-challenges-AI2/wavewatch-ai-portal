@@ -165,41 +165,54 @@ const DetectionTool = () => {
         </CardHeader>
         <CardContent>
           <div
-            className="relative border-2 border-dashed border-primary/30 rounded-2xl p-12 text-center hover:border-primary/50 transition-all duration-300 cursor-pointer clean-card bg-white/20"
+            className="group relative border-2 border-dashed border-primary/20 rounded-3xl p-16 text-center hover:border-primary/40 transition-all duration-500 cursor-pointer bg-gradient-to-br from-white/30 via-white/20 to-white/10 backdrop-blur-md hover:from-white/40 hover:via-white/30 hover:to-white/20"
             onDrop={handleDrop}
             onDragOver={(e) => e.preventDefault()}
             onClick={() => document.getElementById('file-upload')?.click()}
           >
+            {/* Animated background elements */}
+            <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
+              <div className="absolute top-4 right-4 w-24 h-24 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-xl group-hover:scale-110 transition-transform duration-700"></div>
+              <div className="absolute bottom-4 left-4 w-32 h-32 bg-gradient-to-tr from-secondary/10 to-primary/10 rounded-full blur-2xl group-hover:scale-105 transition-transform duration-700"></div>
+            </div>
+            
             {uploadedImageUrl ? (
-              <div className="space-y-6">
-                <img 
-                  src={uploadedImageUrl} 
-                  alt="Uploaded SAR" 
-                  className="max-h-64 mx-auto rounded-xl border border-primary/20 soft-shadow"
-                />
-                <div className="space-y-2">
-                  <p className="text-lg font-medium text-foreground">
+              <div className="relative space-y-8">
+                <div className="relative inline-block">
+                  <img 
+                    src={uploadedImageUrl} 
+                    alt="Uploaded SAR" 
+                    className="max-h-80 mx-auto rounded-2xl border-2 border-primary/30 soft-shadow group-hover:border-primary/50 transition-colors duration-300"
+                  />
+                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-accent rounded-full border-2 border-white shadow-lg animate-soft-pulse"></div>
+                </div>
+                <div className="space-y-3">
+                  <p className="text-xl font-medium text-foreground group-hover:text-primary transition-colors duration-300">
                     {uploadedFile?.name}
                   </p>
-                  <p className="text-accent text-sm">
-                    Ready for analysis • Click to replace
+                  <p className="text-accent text-base font-medium">
+                    ✓ Image loaded • Click to replace
                   </p>
                 </div>
               </div>
             ) : (
-              <div className="space-y-6">
-                <div className="relative mx-auto w-16 h-16">
-                  <Upload className="h-16 w-16 text-primary/60 mx-auto animate-gentle-float" />
+              <div className="space-y-8">
+                <div className="relative mx-auto w-24 h-24">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl blur-lg group-hover:blur-xl transition-all duration-500"></div>
+                  <div className="relative bg-gradient-to-br from-white/40 to-white/20 rounded-2xl p-4 backdrop-blur-sm border border-white/30">
+                    <Upload className="h-16 w-16 text-primary mx-auto animate-gentle-float group-hover:scale-110 transition-transform duration-300" />
+                  </div>
                 </div>
-                <div className="space-y-3">
-                  <p className="text-2xl font-medium text-foreground">
-                    Drop SAR Image Here
+                <div className="space-y-4">
+                  <p className="text-3xl font-light text-foreground group-hover:text-primary transition-colors duration-300">
+                    Drop Your SAR Image
                   </p>
-                  <p className="text-accent">
+                  <p className="text-lg text-accent font-medium">
                     or click to browse files
                   </p>
-                  <div className="text-sm text-muted-foreground">
-                    Supported: JPG, PNG, TIFF, GeoTIFF
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 border border-white/30 rounded-full text-muted-foreground text-sm backdrop-blur-sm">
+                    <div className="w-2 h-2 bg-accent/60 rounded-full animate-soft-pulse"></div>
+                    Supports: JPG, PNG, TIFF, GeoTIFF
                   </div>
                 </div>
               </div>
