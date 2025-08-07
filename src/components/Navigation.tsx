@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Satellite } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,25 +11,19 @@ const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <Satellite className="h-8 w-8 text-accent animate-satellite" />
             <span className="text-xl font-bold text-foreground">WaveTrack.AI</span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#home" className="text-foreground hover:text-primary transition-colors">
+            <Link to="/" className="text-foreground hover:text-primary transition-colors">
               Home
-            </a>
-            <a href="#tool" className="text-foreground hover:text-primary transition-colors">
+            </Link>
+            <Link to="/detection" className="text-foreground hover:text-primary transition-colors">
               Detection Tool
-            </a>
-            <a href="#about" className="text-foreground hover:text-primary transition-colors">
-              About
-            </a>
-            <a href="#contact" className="text-foreground hover:text-primary transition-colors">
-              Contact
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -48,34 +43,20 @@ const Navigation = () => {
         {isOpen && (
           <div className="md:hidden py-4 border-t border-border">
             <div className="flex flex-col space-y-4">
-              <a 
-                href="#home" 
+              <Link 
+                to="/" 
                 className="text-foreground hover:text-primary transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 Home
-              </a>
-              <a 
-                href="#tool" 
+              </Link>
+              <Link 
+                to="/detection" 
                 className="text-foreground hover:text-primary transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 Detection Tool
-              </a>
-              <a 
-                href="#about" 
-                className="text-foreground hover:text-primary transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                About
-              </a>
-              <a 
-                href="#contact" 
-                className="text-foreground hover:text-primary transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                Contact
-              </a>
+              </Link>
             </div>
           </div>
         )}
