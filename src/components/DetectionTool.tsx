@@ -157,11 +157,11 @@ const DetectionTool = () => {
     <div className="min-h-screen flex flex-col items-center justify-center p-6 relative">
       {/* Centered Title */}
       <div className="text-center mb-16">
-        <h1 className="text-5xl md:text-6xl font-light text-foreground mb-4 leading-tight tracking-wide">
-          Sube tu audio para <span className="text-primary font-medium">transcribir</span>
-        </h1>
+        <h2 className="text-4xl md:text-5xl font-light text-foreground mb-4 leading-tight tracking-wide">
+          Upload your SAR image for <span className="text-primary font-medium">detection</span>
+        </h2>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-light">
-          Convierte tu audio a texto con inteligencia artificial avanzada
+          Detect maritime vessels with advanced AI neural networks
         </p>
       </div>
 
@@ -175,7 +175,7 @@ const DetectionTool = () => {
             <div className="relative">
               <img 
                 src={uploadedImageUrl} 
-                alt="Uploaded audio" 
+                alt="Uploaded SAR image" 
                 className="w-32 h-32 rounded-3xl object-cover border-4 border-primary/30 group-hover:border-primary/60 transition-all duration-500 shadow-2xl group-hover:shadow-primary/20"
               />
               <div className="absolute inset-0 bg-primary/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -194,7 +194,7 @@ const DetectionTool = () => {
             
             {/* Main icon container */}
             <div className="relative w-32 h-32 bg-gradient-to-br from-white/40 to-white/20 rounded-full border-4 border-white/30 backdrop-blur-lg shadow-2xl group-hover:shadow-primary/30 group-hover:scale-110 transition-all duration-500 flex items-center justify-center">
-              <Waves className="h-16 w-16 text-primary group-hover:text-accent transition-colors duration-300 animate-gentle-float group-hover:scale-110" />
+              <ImageIcon className="h-16 w-16 text-primary group-hover:text-accent transition-colors duration-300 animate-gentle-float group-hover:scale-110" />
               
               {/* Pulse rings */}
               <div className="absolute inset-0 rounded-full border-2 border-primary/20 animate-ping"></div>
@@ -211,7 +211,7 @@ const DetectionTool = () => {
         <input
           id="file-upload"
           type="file"
-          accept="audio/*"
+          accept="image/*"
           onChange={handleFileUpload}
           className="hidden"
         />
@@ -225,17 +225,17 @@ const DetectionTool = () => {
               {uploadedFile?.name}
             </p>
             <p className="text-accent font-medium">
-              ✓ Audio cargado • Clic para reemplazar
+              ✓ SAR image loaded • Click to replace
             </p>
           </div>
         ) : (
           <div className="space-y-3">
             <p className="text-lg text-muted-foreground font-light">
-              Haz clic en el ícono o arrastra tu archivo aquí
+              Click the icon or drag your SAR image here
             </p>
             <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/20 border border-white/30 rounded-full text-muted-foreground text-sm backdrop-blur-sm">
               <div className="w-2 h-2 bg-accent/60 rounded-full animate-soft-pulse"></div>
-              Formatos: MP3, WAV, M4A, FLAC
+              Formats: JPG, PNG, TIFF, GIF
             </div>
           </div>
         )}
@@ -245,9 +245,9 @@ const DetectionTool = () => {
       <div className="w-full max-w-4xl">
         <div className="text-center mb-8">
           <h2 className="text-2xl font-light text-foreground mb-2">
-            Opciones de <span className="text-accent font-medium">transcripción</span>
+            Detection <span className="text-accent font-medium">options</span>
           </h2>
-          <p className="text-muted-foreground">Personaliza el resultado según tus necesidades</p>
+          <p className="text-muted-foreground">Customize the analysis output for your needs</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
@@ -263,12 +263,12 @@ const DetectionTool = () => {
                   className="border-primary data-[state=checked]:bg-primary"
                 />
                 <label htmlFor="ship-count" className="flex items-center gap-3 cursor-pointer">
-                  <Activity className="h-5 w-5 text-primary group-hover:scale-110 transition-transform duration-200" />
-                  <span className="font-medium">Texto completo</span>
+                  <Ship className="h-5 w-5 text-primary group-hover:scale-110 transition-transform duration-200" />
+                  <span className="font-medium">Ship count</span>
                 </label>
               </div>
               <p className="text-sm text-muted-foreground pl-8">
-                Transcripción completa del contenido del audio
+                Total number of vessels detected in the image
               </p>
             </div>
           </div>
@@ -285,12 +285,12 @@ const DetectionTool = () => {
                   className="border-accent data-[state=checked]:bg-accent"
                 />
                 <label htmlFor="detection-prob" className="flex items-center gap-3 cursor-pointer">
-                  <Mic className="h-5 w-5 text-accent group-hover:scale-110 transition-transform duration-200" />
-                  <span className="font-medium">Marcas de tiempo</span>
+                  <Activity className="h-5 w-5 text-accent group-hover:scale-110 transition-transform duration-200" />
+                  <span className="font-medium">Detection probabilities</span>
                 </label>
               </div>
               <p className="text-sm text-muted-foreground pl-8">
-                Incluye timestamps para cada segmento
+                Confidence scores for each detected vessel
               </p>
             </div>
           </div>
@@ -307,12 +307,12 @@ const DetectionTool = () => {
                   className="border-secondary data-[state=checked]:bg-secondary"
                 />
                 <label htmlFor="processed-image" className="flex items-center gap-3 cursor-pointer">
-                  <Ship className="h-5 w-5 text-secondary group-hover:scale-110 transition-transform duration-200" />
-                  <span className="font-medium">Resumen</span>
+                  <ImageIcon className="h-5 w-5 text-secondary group-hover:scale-110 transition-transform duration-200" />
+                  <span className="font-medium">Processed image</span>
                 </label>
               </div>
               <p className="text-sm text-muted-foreground pl-8">
-                Genera un resumen automático del contenido
+                SAR image with detection overlay and annotations
               </p>
             </div>
           </div>
@@ -330,12 +330,12 @@ const DetectionTool = () => {
           {isProcessing ? (
             <>
               <Loader2 className="h-6 w-6 mr-3 animate-spin" />
-              Transcribiendo...
+              Analyzing...
             </>
           ) : (
             <>
               <Zap className="h-6 w-6 mr-3" />
-              Iniciar transcripción
+              Start detection
             </>
           )}
         </Button>

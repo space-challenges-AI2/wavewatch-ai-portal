@@ -16,11 +16,11 @@ const Index = () => {
         
         <div className="container mx-auto relative z-10 pt-12">
           {/* Header */}
-          <div className="text-center mb-16">
-            <h1 className="text-5xl md:text-7xl font-light text-foreground mb-8 leading-tight">
+          <div className="text-center mb-32">
+            <h1 className="text-6xl md:text-8xl font-light text-foreground mb-12 leading-tight">
               Wave<span className="text-primary font-medium">Track</span><span className="text-accent">.AI</span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-12">
+            <p className="text-2xl md:text-3xl text-muted-foreground max-w-5xl mx-auto leading-relaxed mb-16">
               Advanced maritime vessel detection powered by deep learning neural networks
             </p>
             <div className="flex justify-center">
