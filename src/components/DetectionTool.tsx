@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Upload, Zap, Loader2, Ship, Activity, Image as ImageIcon } from "lucide-react";
+import { Upload, Zap, Loader2, Ship, Activity, Image as ImageIcon, Mic, Waves } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface DetectionResults {
@@ -154,91 +154,105 @@ const DetectionTool = () => {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-6 space-y-8">
-      {/* Upload Section */}
-      <Card className="clean-card bg-white/60 backdrop-blur-sm border-2 border-primary/20">
-        <CardHeader className="pb-6">
-          <CardTitle className="flex items-center gap-3 text-2xl font-medium text-foreground">
-            <Upload className="h-6 w-6 text-primary" />
-            Upload SAR Image
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 relative">
+      {/* Centered Title */}
+      <div className="text-center mb-16">
+        <h1 className="text-5xl md:text-6xl font-light text-foreground mb-4 leading-tight tracking-wide">
+          Sube tu audio para <span className="text-primary font-medium">transcribir</span>
+        </h1>
+        <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-light">
+          Convierte tu audio a texto con inteligencia artificial avanzada
+        </p>
+      </div>
+
+      {/* Central Upload Icon */}
+      <div className="relative mb-16">
+        {uploadedImageUrl ? (
+          <div 
+            className="group cursor-pointer"
+            onClick={() => document.getElementById('file-upload')?.click()}
+          >
+            <div className="relative">
+              <img 
+                src={uploadedImageUrl} 
+                alt="Uploaded audio" 
+                className="w-32 h-32 rounded-3xl object-cover border-4 border-primary/30 group-hover:border-primary/60 transition-all duration-500 shadow-2xl group-hover:shadow-primary/20"
+              />
+              <div className="absolute inset-0 bg-primary/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute -top-2 -right-2 w-8 h-8 bg-accent rounded-full border-4 border-white shadow-lg animate-soft-pulse"></div>
+            </div>
+          </div>
+        ) : (
           <div
-            className="group relative border-2 border-dashed border-primary/20 rounded-3xl p-16 text-center hover:border-primary/40 transition-all duration-500 cursor-pointer bg-gradient-to-br from-white/30 via-white/20 to-white/10 backdrop-blur-md hover:from-white/40 hover:via-white/30 hover:to-white/20"
+            className="group cursor-pointer relative"
             onDrop={handleDrop}
             onDragOver={(e) => e.preventDefault()}
             onClick={() => document.getElementById('file-upload')?.click()}
           >
-            {/* Animated background elements */}
-            <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
-              <div className="absolute top-4 right-4 w-24 h-24 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-xl group-hover:scale-110 transition-transform duration-700"></div>
-              <div className="absolute bottom-4 left-4 w-32 h-32 bg-gradient-to-tr from-secondary/10 to-primary/10 rounded-full blur-2xl group-hover:scale-105 transition-transform duration-700"></div>
+            {/* Glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-3xl scale-150 opacity-50 group-hover:opacity-80 group-hover:scale-175 transition-all duration-700"></div>
+            
+            {/* Main icon container */}
+            <div className="relative w-32 h-32 bg-gradient-to-br from-white/40 to-white/20 rounded-full border-4 border-white/30 backdrop-blur-lg shadow-2xl group-hover:shadow-primary/30 group-hover:scale-110 transition-all duration-500 flex items-center justify-center">
+              <Waves className="h-16 w-16 text-primary group-hover:text-accent transition-colors duration-300 animate-gentle-float group-hover:scale-110" />
+              
+              {/* Pulse rings */}
+              <div className="absolute inset-0 rounded-full border-2 border-primary/20 animate-ping"></div>
+              <div className="absolute inset-0 rounded-full border-2 border-accent/20 animate-ping" style={{animationDelay: '1s'}}></div>
             </div>
             
-            {uploadedImageUrl ? (
-              <div className="relative space-y-8">
-                <div className="relative inline-block">
-                  <img 
-                    src={uploadedImageUrl} 
-                    alt="Uploaded SAR" 
-                    className="max-h-80 mx-auto rounded-2xl border-2 border-primary/30 soft-shadow group-hover:border-primary/50 transition-colors duration-300"
-                  />
-                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-accent rounded-full border-2 border-white shadow-lg animate-soft-pulse"></div>
-                </div>
-                <div className="space-y-3">
-                  <p className="text-xl font-medium text-foreground group-hover:text-primary transition-colors duration-300">
-                    {uploadedFile?.name}
-                  </p>
-                  <p className="text-accent text-base font-medium">
-                    ✓ Image loaded • Click to replace
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <div className="space-y-8">
-                <div className="relative mx-auto w-24 h-24">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl blur-lg group-hover:blur-xl transition-all duration-500"></div>
-                  <div className="relative bg-gradient-to-br from-white/40 to-white/20 rounded-2xl p-4 backdrop-blur-sm border border-white/30">
-                    <Upload className="h-16 w-16 text-primary mx-auto animate-gentle-float group-hover:scale-110 transition-transform duration-300" />
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <p className="text-3xl font-light text-foreground group-hover:text-primary transition-colors duration-300">
-                    Drop Your SAR Image
-                  </p>
-                  <p className="text-lg text-accent font-medium">
-                    or click to browse files
-                  </p>
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 border border-white/30 rounded-full text-muted-foreground text-sm backdrop-blur-sm">
-                    <div className="w-2 h-2 bg-accent/60 rounded-full animate-soft-pulse"></div>
-                    Supports: JPG, PNG, TIFF, GeoTIFF
-                  </div>
-                </div>
-              </div>
-            )}
-            <input
-              id="file-upload"
-              type="file"
-              accept="image/*"
-              onChange={handleFileUpload}
-              className="hidden"
-            />
+            {/* Floating particles */}
+            <div className="absolute -top-4 -left-4 w-3 h-3 bg-primary/60 rounded-full animate-gentle-float"></div>
+            <div className="absolute -bottom-4 -right-4 w-2 h-2 bg-accent/60 rounded-full animate-gentle-float" style={{animationDelay: '2s'}}></div>
+            <div className="absolute top-2 -right-6 w-1.5 h-1.5 bg-secondary/60 rounded-full animate-gentle-float" style={{animationDelay: '1.5s'}}></div>
           </div>
-        </CardContent>
-      </Card>
+        )}
+        
+        <input
+          id="file-upload"
+          type="file"
+          accept="audio/*"
+          onChange={handleFileUpload}
+          className="hidden"
+        />
+      </div>
+
+      {/* Status text */}
+      <div className="text-center mb-12">
+        {uploadedImageUrl ? (
+          <div className="space-y-2">
+            <p className="text-xl font-medium text-foreground">
+              {uploadedFile?.name}
+            </p>
+            <p className="text-accent font-medium">
+              ✓ Audio cargado • Clic para reemplazar
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            <p className="text-lg text-muted-foreground font-light">
+              Haz clic en el ícono o arrastra tu archivo aquí
+            </p>
+            <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/20 border border-white/30 rounded-full text-muted-foreground text-sm backdrop-blur-sm">
+              <div className="w-2 h-2 bg-accent/60 rounded-full animate-soft-pulse"></div>
+              Formatos: MP3, WAV, M4A, FLAC
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Output Options */}
-      <Card className="clean-card bg-white/60 backdrop-blur-sm border-2 border-accent/20">
-        <CardHeader className="pb-6">
-          <CardTitle className="flex items-center gap-3 text-2xl font-medium text-foreground">
-            <Activity className="h-6 w-6 text-accent" />
-            Analysis Configuration
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="clean-card bg-white/40 p-6 rounded-xl border border-primary/10">
+      <div className="w-full max-w-4xl">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-light text-foreground mb-2">
+            Opciones de <span className="text-accent font-medium">transcripción</span>
+          </h2>
+          <p className="text-muted-foreground">Personaliza el resultado según tus necesidades</p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="group cursor-pointer">
+            <div className="clean-card bg-white/40 p-6 rounded-2xl border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 hover:bg-white/50">
               <div className="flex items-center space-x-3 mb-3">
                 <Checkbox
                   id="ship-count"
@@ -249,16 +263,18 @@ const DetectionTool = () => {
                   className="border-primary data-[state=checked]:bg-primary"
                 />
                 <label htmlFor="ship-count" className="flex items-center gap-3 cursor-pointer">
-                  <Ship className="h-5 w-5 text-primary" />
-                  <span className="font-medium">Vessel Count</span>
+                  <Activity className="h-5 w-5 text-primary group-hover:scale-110 transition-transform duration-200" />
+                  <span className="font-medium">Texto completo</span>
                 </label>
               </div>
               <p className="text-sm text-muted-foreground pl-8">
-                Total number of detected maritime vessels
+                Transcripción completa del contenido del audio
               </p>
             </div>
-            
-            <div className="clean-card bg-white/40 p-6 rounded-xl border border-accent/10">
+          </div>
+          
+          <div className="group cursor-pointer">
+            <div className="clean-card bg-white/40 p-6 rounded-2xl border-2 border-accent/20 hover:border-accent/40 transition-all duration-300 hover:bg-white/50">
               <div className="flex items-center space-x-3 mb-3">
                 <Checkbox
                   id="detection-prob"
@@ -269,16 +285,18 @@ const DetectionTool = () => {
                   className="border-accent data-[state=checked]:bg-accent"
                 />
                 <label htmlFor="detection-prob" className="flex items-center gap-3 cursor-pointer">
-                  <Activity className="h-5 w-5 text-accent" />
-                  <span className="font-medium">Confidence Scores</span>
+                  <Mic className="h-5 w-5 text-accent group-hover:scale-110 transition-transform duration-200" />
+                  <span className="font-medium">Marcas de tiempo</span>
                 </label>
               </div>
               <p className="text-sm text-muted-foreground pl-8">
-                AI confidence levels for each detection
+                Incluye timestamps para cada segmento
               </p>
             </div>
-            
-            <div className="clean-card bg-white/40 p-6 rounded-xl border border-secondary/20">
+          </div>
+          
+          <div className="group cursor-pointer">
+            <div className="clean-card bg-white/40 p-6 rounded-2xl border-2 border-secondary/20 hover:border-secondary/40 transition-all duration-300 hover:bg-white/50">
               <div className="flex items-center space-x-3 mb-3">
                 <Checkbox
                   id="processed-image"
@@ -289,35 +307,35 @@ const DetectionTool = () => {
                   className="border-secondary data-[state=checked]:bg-secondary"
                 />
                 <label htmlFor="processed-image" className="flex items-center gap-3 cursor-pointer">
-                  <ImageIcon className="h-5 w-5 text-secondary" />
-                  <span className="font-medium">Annotated Image</span>
+                  <Ship className="h-5 w-5 text-secondary group-hover:scale-110 transition-transform duration-200" />
+                  <span className="font-medium">Resumen</span>
                 </label>
               </div>
               <p className="text-sm text-muted-foreground pl-8">
-                Image with detection bounding boxes
+                Genera un resumen automático del contenido
               </p>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
-      {/* Analyze Button */}
-      <div className="text-center py-8">
+      {/* Transcribe Button */}
+      <div className="text-center">
         <Button
           onClick={handleAnalyze}
           disabled={isProcessing || !uploadedFile}
           size="lg"
-          className="px-16 py-6 text-xl font-medium interactive-button bg-primary hover:bg-primary/90 text-primary-foreground gentle-glow"
+          className="px-20 py-6 text-xl font-light interactive-button bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white rounded-full shadow-2xl hover:shadow-primary/30 hover:scale-105 transition-all duration-300"
         >
           {isProcessing ? (
             <>
               <Loader2 className="h-6 w-6 mr-3 animate-spin" />
-              Analyzing Image...
+              Transcribiendo...
             </>
           ) : (
             <>
               <Zap className="h-6 w-6 mr-3" />
-              Start Analysis
+              Iniciar transcripción
             </>
           )}
         </Button>

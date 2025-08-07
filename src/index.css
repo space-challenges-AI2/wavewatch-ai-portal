@@ -164,13 +164,17 @@ All colors MUST be HSL.
     50% { transform: scale(1.02); }
   }
 
-  .animate-gentle-float {
-    animation: gentle-float 6s ease-in-out infinite;
-  }
+.animate-gentle-float {
+  animation: gentle-float 6s ease-in-out infinite;
+}
 
-  .animate-soft-pulse {
-    animation: soft-pulse 3s ease-in-out infinite;
-  }
+.animate-soft-pulse {
+  animation: soft-pulse 3s ease-in-out infinite;
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
 
   .animate-subtle-scale {
     animation: subtle-scale 4s ease-in-out infinite;
