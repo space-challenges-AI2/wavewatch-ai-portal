@@ -165,7 +165,7 @@ All colors MUST be HSL.
   }
 
 .animate-gentle-float {
-  animation: gentle-float 6s ease-in-out infinite;
+  animation: gentle-float 10s ease-in-out infinite;
 }
 
 .animate-soft-pulse {
