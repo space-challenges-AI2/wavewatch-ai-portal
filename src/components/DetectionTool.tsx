@@ -194,17 +194,17 @@ const DetectionTool = () => {
             
             {/* Main icon container */}
             <div className="relative w-32 h-32 bg-gradient-to-br from-white/40 to-white/20 rounded-full border-4 border-white/30 backdrop-blur-lg shadow-2xl group-hover:shadow-primary/30 group-hover:scale-110 transition-all duration-500 flex items-center justify-center">
-              <ImageIcon className="h-16 w-16 text-primary group-hover:text-accent transition-colors duration-300 animate-gentle-float group-hover:scale-110" />
+              <ImageIcon className="h-16 w-16 text-primary group-hover:text-accent transition-colors duration-300 group-hover:scale-110" />
               
               {/* Pulse rings */}
-              <div className="absolute inset-0 rounded-full border-2 border-primary/20 animate-ping"></div>
-              <div className="absolute inset-0 rounded-full border-2 border-accent/20 animate-ping" style={{animationDelay: '1s'}}></div>
+              <div className="absolute inset-0 rounded-full border-2 border-primary/20"></div>
+              <div className="absolute inset-0 rounded-full border-2 border-accent/20"></div>
             </div>
             
             {/* Floating particles */}
-            <div className="absolute -top-4 -left-4 w-3 h-3 bg-primary/60 rounded-full animate-gentle-float"></div>
-            <div className="absolute -bottom-4 -right-4 w-2 h-2 bg-accent/60 rounded-full animate-gentle-float" style={{animationDelay: '2s'}}></div>
-            <div className="absolute top-2 -right-6 w-1.5 h-1.5 bg-secondary/60 rounded-full animate-gentle-float" style={{animationDelay: '1.5s'}}></div>
+            <div className="absolute -top-4 -left-4 w-3 h-3 bg-primary/60 rounded-full"></div>
+            <div className="absolute -bottom-4 -right-4 w-2 h-2 bg-accent/60 rounded-full"></div>
+            <div className="absolute top-2 -right-6 w-1.5 h-1.5 bg-secondary/60 rounded-full"></div>
           </div>
         )}
         
