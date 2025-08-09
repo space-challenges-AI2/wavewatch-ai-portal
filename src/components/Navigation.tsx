@@ -24,6 +24,9 @@ const Navigation = () => {
             <Link to="/detection" className="text-foreground hover:text-primary transition-colors">
               Detection Tool
             </Link>
+            <Link to="/docs" className="text-foreground hover:text-primary transition-colors">
+              Documentation
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -56,6 +59,13 @@ const Navigation = () => {
                 onClick={() => setIsOpen(false)}
               >
                 Detection Tool
+              </Link>
+              <Link 
+                to="/docs" 
+                className="text-foreground hover:text-primary transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Documentation
               </Link>
             </div>
           </div>
