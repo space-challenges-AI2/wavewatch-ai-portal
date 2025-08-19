@@ -6,9 +6,13 @@ import { Upload, Zap, Loader2, Ship, Activity, Image as ImageIcon, Mic, Waves } 
 import { useToast } from "@/hooks/use-toast";
 
 interface DetectionResults {
-  shipCount?: number;
-  detectionProbabilities?: number[];
-  processedImageUrl?: string;
+  images?: {
+    input?: string;
+    preprocessed?: string;
+    final?: string;
+  };
+  count_result?: number;
+  probabilities_result?: number[];
 }
 
 const DetectionTool = () => {
@@ -85,20 +89,17 @@ const DetectionTool = () => {
       const formData = new FormData();
       formData.append('file', uploadedFile);
       
-      // Map frontend options to backend Spanish option names
-      const backendOptions: string[] = [];
-      if (outputOptions.shipCount) {
-        backendOptions.push('Número de Barcos');
-      }
-      if (outputOptions.detectionProbability) {
-        backendOptions.push('Probabilidades de Detección');
-      }
-      if (outputOptions.processedImage) {
-        backendOptions.push('Imagen con Detecciones');
-      }
+      // Add required options for new API
+      const requiredOptions = [
+        'Input Image',
+        'Preprocessed Image', 
+        'Final Image with Detections',
+        'Number of Ships',
+        'Detection Probabilities'
+      ];
       
-      // Add each option as a separate form field (FastAPI expects List[str])
-      backendOptions.forEach(option => {
+      // Add each option as a separate form field
+      requiredOptions.forEach(option => {
         formData.append('options', option);
       });
       
@@ -119,22 +120,8 @@ const DetectionTool = () => {
         throw new Error(data.error);
       }
       
-      // Map backend response to frontend format
-      const apiResults: DetectionResults = {};
-      
-      if (data.count_result !== undefined) {
-        apiResults.shipCount = data.count_result;
-      }
-      
-      if (data.probabilities_result) {
-        apiResults.detectionProbabilities = data.probabilities_result;
-      }
-      
-      if (data.image_result) {
-        apiResults.processedImageUrl = `data:image/jpeg;base64,${data.image_result}`;
-      }
-      
-      setResults(apiResults);
+      // Set results directly from new API response
+      setResults(data);
       
       toast({
         title: "Analysis complete",
@@ -343,118 +330,166 @@ const DetectionTool = () => {
 
       {/* Results Display */}
       {(isProcessing || results) && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Input Panel */}
-          <Card className="clean-card bg-white/60 backdrop-blur-sm border-2 border-primary/20">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-xl font-medium text-primary">
-                Original Image
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {uploadedImageUrl && (
-                <img 
-                  src={uploadedImageUrl} 
-                  alt="Original SAR" 
-                  className="w-full rounded-xl border border-primary/20 soft-shadow"
-                />
-              )}
-            </CardContent>
-          </Card>
+        <div className="w-full max-w-7xl mx-auto mt-16 space-y-8">
+          {/* Three Images Display */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Input Image */}
+            <Card className="clean-card bg-white/60 backdrop-blur-sm border-2 border-primary/20">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl font-medium text-primary flex items-center gap-2">
+                  <ImageIcon className="h-5 w-5" />
+                  Input Image
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {results?.images?.input ? (
+                  <img 
+                    src={`data:image/jpeg;base64,${results.images.input}`}
+                    alt="Input SAR" 
+                    className="w-full rounded-xl border border-primary/20 soft-shadow"
+                  />
+                ) : uploadedImageUrl ? (
+                  <img 
+                    src={uploadedImageUrl} 
+                    alt="Original SAR" 
+                    className="w-full rounded-xl border border-primary/20 soft-shadow"
+                  />
+                ) : (
+                  <div className="w-full h-64 bg-primary/5 rounded-xl border border-primary/20 flex items-center justify-center">
+                    <ImageIcon className="h-12 w-12 text-primary/40" />
+                  </div>
+                )}
+              </CardContent>
+            </Card>
 
-          {/* Processing Panel */}
-          <Card className="clean-card bg-white/60 backdrop-blur-sm border-2 border-accent/20">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-xl font-medium text-accent">
-                Processing Status
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex items-center justify-center h-64">
-              {isProcessing ? (
-                <div className="text-center space-y-6">
-                  <div className="relative mx-auto w-16 h-16">
-                    <div className="absolute inset-0 border-4 border-accent/20 rounded-full"></div>
-                    <div className="absolute inset-0 border-t-4 border-accent rounded-full animate-spin"></div>
+            {/* Preprocessed Image */}
+            <Card className="clean-card bg-white/60 backdrop-blur-sm border-2 border-accent/20">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl font-medium text-accent flex items-center gap-2">
+                  <Waves className="h-5 w-5" />
+                  Preprocessed Image
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {isProcessing ? (
+                  <div className="w-full h-64 bg-accent/5 rounded-xl border border-accent/20 flex items-center justify-center">
+                    <div className="text-center space-y-4">
+                      <div className="relative mx-auto w-16 h-16">
+                        <div className="absolute inset-0 border-4 border-accent/20 rounded-full"></div>
+                        <div className="absolute inset-0 border-t-4 border-accent rounded-full animate-spin"></div>
+                      </div>
+                      <p className="text-accent font-medium">Processing...</p>
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <p className="text-accent font-medium">Analyzing Image</p>
-                    <p className="text-sm text-muted-foreground">YOLO Neural Network Active</p>
+                ) : results?.images?.preprocessed ? (
+                  <div className="relative">
+                    <img 
+                      src={`data:image/jpeg;base64,${results.images.preprocessed}`}
+                      alt="Preprocessed SAR" 
+                      className="w-full rounded-xl border border-accent/20 soft-shadow"
+                    />
+                    <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-accent px-3 py-1 rounded-full text-xs font-medium">
+                      Resized & Padded
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <div className="text-center space-y-4">
-                  <div className="mx-auto w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center">
-                    <Activity className="h-8 w-8 text-accent" />
+                ) : (
+                  <div className="w-full h-64 bg-accent/5 rounded-xl border border-accent/20 flex items-center justify-center">
+                    <Waves className="h-12 w-12 text-accent/40" />
                   </div>
-                  <div className="space-y-1">
-                    <p className="text-accent font-medium">Analysis Complete</p>
-                    <p className="text-sm text-muted-foreground">Results Ready</p>
-                  </div>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+                )}
+              </CardContent>
+            </Card>
 
-          {/* Output Panel */}
-          <Card className="clean-card bg-white/60 backdrop-blur-sm border-2 border-secondary/20">
-            <CardHeader className="pb-4">
-              <CardTitle className="text-xl font-medium text-secondary">
-                Analysis Results
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {isProcessing ? (
-                <div className="flex items-center justify-center h-64">
-                  <div className="text-center space-y-4">
-                    <div className="w-12 h-12 border-2 border-secondary/30 rounded-full border-dashed animate-spin mx-auto"></div>
-                    <p className="text-muted-foreground text-sm">Compiling Results...</p>
+            {/* Final Image with Detections */}
+            <Card className="clean-card bg-white/60 backdrop-blur-sm border-2 border-secondary/20">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl font-medium text-secondary flex items-center gap-2">
+                  <Ship className="h-5 w-5" />
+                  Final Image with Detections
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {isProcessing ? (
+                  <div className="w-full h-64 bg-secondary/5 rounded-xl border border-secondary/20 flex items-center justify-center">
+                    <div className="text-center space-y-4">
+                      <div className="w-12 h-12 border-2 border-secondary/30 rounded-full border-dashed animate-spin mx-auto"></div>
+                      <p className="text-secondary font-medium">Detecting...</p>
+                    </div>
                   </div>
-                </div>
-              ) : results ? (
-                <div className="space-y-6">
-                  {results.processedImageUrl && (
-                    <div className="relative">
-                      <img 
-                        src={results.processedImageUrl} 
-                        alt="Processed" 
-                        className="w-full rounded-xl border border-secondary/20 soft-shadow"
-                      />
-                      <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-secondary px-3 py-1 rounded-full text-xs font-medium">
-                        Detection Overlay
-                      </div>
+                ) : results?.images?.final ? (
+                  <div className="relative">
+                    <img 
+                      src={`data:image/jpeg;base64,${results.images.final}`}
+                      alt="Final with detections" 
+                      className="w-full rounded-xl border border-secondary/20 soft-shadow"
+                    />
+                    <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-secondary px-3 py-1 rounded-full text-xs font-medium">
+                      Detection Overlay
                     </div>
-                  )}
-                  {results.shipCount !== undefined && (
-                    <div className="clean-card bg-primary/5 border border-primary/20 p-4 rounded-xl">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">Vessels Detected</span>
-                        <span className="text-2xl font-medium text-primary">{results.shipCount}</span>
-                      </div>
+                  </div>
+                ) : (
+                  <div className="w-full h-64 bg-secondary/5 rounded-xl border border-secondary/20 flex items-center justify-center">
+                    <Ship className="h-12 w-12 text-secondary/40" />
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Analysis Results */}
+          {!isProcessing && results && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+              {/* Ship Count */}
+              {results.count_result !== undefined && (
+                <Card className="clean-card bg-primary/5 border-2 border-primary/20">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-lg font-medium text-primary flex items-center gap-2">
+                      <Ship className="h-5 w-5" />
+                      Number of Ships Detected
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-center">
+                      <div className="text-6xl font-bold text-primary mb-2">{results.count_result}</div>
+                      <p className="text-muted-foreground">Maritime vessels identified</p>
                     </div>
-                  )}
-                  {results.detectionProbabilities && results.detectionProbabilities.length > 0 && (
-                    <div className="space-y-3">
-                      <p className="text-sm font-medium text-accent">Confidence Scores</p>
-                      <div className="space-y-2 max-h-32 overflow-y-auto">
-                        {results.detectionProbabilities.map((confidence, index) => (
-                          <div key={index} className="clean-card bg-accent/5 border border-accent/20 p-3 rounded-lg">
-                            <div className="flex items-center justify-between text-sm">
-                              <span className="text-muted-foreground">Vessel {index + 1}</span>
-                              <span className="font-medium text-accent">{(confidence * 100).toFixed(1)}%</span>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Detection Probabilities */}
+              {results.probabilities_result && results.probabilities_result.length > 0 && (
+                <Card className="clean-card bg-accent/5 border-2 border-accent/20">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-lg font-medium text-accent flex items-center gap-2">
+                      <Activity className="h-5 w-5" />
+                      Detection Probabilities
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3 max-h-48 overflow-y-auto">
+                      {results.probabilities_result.map((confidence, index) => (
+                        <div key={index} className="flex items-center justify-between p-3 bg-white/50 rounded-lg border border-accent/20">
+                          <span className="font-medium text-foreground">Vessel {index + 1}</span>
+                          <div className="flex items-center gap-3">
+                            <div className="w-24 h-2 bg-accent/20 rounded-full overflow-hidden">
+                              <div 
+                                className="h-full bg-accent rounded-full transition-all duration-300"
+                                style={{ width: `${confidence * 100}%` }}
+                              />
                             </div>
+                            <span className="font-bold text-accent min-w-[60px] text-right">
+                              {(confidence * 100).toFixed(1)}%
+                            </span>
                           </div>
-                        ))}
-                      </div>
+                        </div>
+                      ))}
                     </div>
-                  )}
-                </div>
-              ) : (
-                <div className="flex items-center justify-center h-64">
-                  <p className="text-muted-foreground text-sm">Awaiting Analysis</p>
-                </div>
+                  </CardContent>
+                </Card>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          )}
         </div>
       )}
     </div>
