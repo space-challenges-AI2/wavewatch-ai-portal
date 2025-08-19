@@ -120,15 +120,16 @@ const Index = () => {
         <aside className="container mx-auto px-4 pb-24">
           <div className="flex flex-wrap gap-4">
             <Button asChild variant="outline" className="rounded-full">
-              <a
-                href="/docs/wavetrack-whitepaper.pdf"
+              <Link
+                to="/docs/wavetrack-whitepaper.pdf"
+                reloadDocument
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Open PDF Whitepaper (new tab)"
               >
                 <FileText className="h-5 w-5" />
                 View PDF Whitepaper
-              </a>
+              </Link>
             </Button>
             <Button asChild variant="outline" className="rounded-full">
               <a
