@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, FileText, Github } from "lucide-react";
 import heroImage from "@/assets/hero-background.jpg";
 import { Helmet } from "react-helmet-async";
+import whitepaperPdf from "@/assets/docs/wavetrack-whitepaper.pdf";
 
 const Index = () => {
   const canonical = typeof window !== "undefined" ? window.location.href : "";
