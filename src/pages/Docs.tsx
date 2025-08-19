@@ -65,7 +65,7 @@ const Docs = () => {
               Explore the codebase, open issues, and contribute improvements to the project.
             </p>
             <a
-              href="https://github.com/your-org/wavetrack-ai"
+              href="https://github.com/space-challenges-AI2/sentinel1_sar_ship_detection"
               target="_blank"
               rel="noopener noreferrer"
             >
