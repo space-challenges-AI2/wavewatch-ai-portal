@@ -5,6 +5,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Upload, Zap, Loader2, Ship, Activity, Image as ImageIcon, Mic, Waves } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
+// Import sample images
+import sample1 from "@/assets/samples/sample1.png";
+import sample2 from "@/assets/samples/sample2.png";
+import sample3 from "@/assets/samples/sample3.png";
+import sample4 from "@/assets/samples/sample4.png";
+
 interface DetectionResults {
   images?: {
     input?: string;
@@ -27,6 +33,14 @@ const DetectionTool = () => {
   const [results, setResults] = useState<DetectionResults | null>(null);
   const { toast } = useToast();
 
+  // Sample images data
+  const sampleImages = [
+    { id: 1, src: sample1, name: "Open Ocean Ships" },
+    { id: 2, src: sample2, name: "Port Area" },
+    { id: 3, src: sample3, name: "Coastal Vessels" },
+    { id: 4, src: sample4, name: "Shipping Route" },
+  ];
+
   const handleFileUpload = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -47,6 +61,29 @@ const DetectionTool = () => {
       }
     }
   }, [toast]);
+
+  const handleSampleImageSelect = async (sampleSrc: string, sampleName: string) => {
+    try {
+      // Convert sample image to File object
+      const response = await fetch(sampleSrc);
+      const blob = await response.blob();
+      const file = new File([blob], `${sampleName}.png`, { type: 'image/png' });
+      
+      setUploadedFile(file);
+      setUploadedImageUrl(sampleSrc);
+      
+      toast({
+        title: "Sample image selected",
+        description: `${sampleName} ready for analysis`,
+      });
+    } catch (error) {
+      toast({
+        title: "Error loading sample",
+        description: "Failed to load sample image",
+        variant: "destructive",
+      });
+    }
+  };
 
   const handleDrop = useCallback((event: React.DragEvent) => {
     event.preventDefault();
@@ -104,7 +141,7 @@ const DetectionTool = () => {
       });
       
       // Make API call to Python backend
-      const response = await fetch('http://localhost:8000/predict/', {
+      const response = await fetch('https://wavetrack-ai-backend.onrender.com/predict/', {
         method: 'POST',
         body: formData,
       });
@@ -227,6 +264,39 @@ const DetectionTool = () => {
           </div>
         )}
       </div>
+
+      {/* Sample Images Section */}
+      {!uploadedImageUrl && (
+        <div className="w-full max-w-4xl mb-16">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-light text-foreground mb-2">
+              Or try a <span className="text-primary font-medium">sample image</span>
+            </h3>
+            <p className="text-muted-foreground">Click any sample to start detection</p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {sampleImages.map((sample) => (
+              <div
+                key={sample.id}
+                className="group cursor-pointer"
+                onClick={() => handleSampleImageSelect(sample.src, sample.name)}
+              >
+                <div className="clean-card bg-white/40 p-4 rounded-2xl border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 hover:bg-white/50 hover:scale-105">
+                  <img
+                    src={sample.src}
+                    alt={sample.name}
+                    className="w-full h-24 object-cover rounded-lg mb-3"
+                  />
+                  <p className="text-sm font-medium text-foreground text-center">
+                    {sample.name}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Output Options */}
       <div className="w-full max-w-4xl">
