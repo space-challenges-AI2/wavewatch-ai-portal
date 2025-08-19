@@ -132,7 +132,7 @@ const Index = () => {
             </Button>
             <Button asChild variant="outline" className="rounded-full">
               <a
-                href="https://github.com/your-org/wavetrack-ai"
+                href="https://github.com/space-challenges-AI2/sentinel1_sar_ship_detection"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit WaveTrack.AI on GitHub (new tab)"
