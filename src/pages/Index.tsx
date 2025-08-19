@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, FileText, Github } from "lucide-react";
 import heroImage from "@/assets/hero-background.jpg";
 import { Helmet } from "react-helmet-async";
+// --- PASO 1: IMPORTAR EL PDF ---
 import whitepaperPdf from "@/assets/docs/wavetrack-whitepaper.pdf";
 
 const Index = () => {
@@ -120,9 +121,11 @@ const Index = () => {
         {/* Quick Links */}
         <aside className="container mx-auto px-4 pb-24">
           <div className="flex flex-wrap gap-4">
+            
+            {/* --- PASO 2: USAR LA VARIABLE IMPORTADA EN EL BOTÓN --- */}
             <Button asChild variant="outline" className="rounded-full">
               <a
-                href={whitepaperPdf}
+                href={whitepaperPdf} 
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Open PDF Whitepaper (new tab)"
@@ -131,6 +134,7 @@ const Index = () => {
                 View PDF Whitepaper
               </a>
             </Button>
+            
             <Button asChild variant="outline" className="rounded-full">
               <a
                 href="https://github.com/space-challenges-AI2/sentinel1_sar_ship_detection"
