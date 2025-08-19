@@ -12,7 +12,7 @@ const Index = () => {
     "@type": "Organization",
     name: "WaveTrack.AI",
     url: canonical,
-    sameAs: ["https://github.com/your-org/wavetrack-ai"],
+    sameAs: ["https://github.com/space-challenges-AI2/sentinel1_sar_ship_detection"],
   };
 
   return (
