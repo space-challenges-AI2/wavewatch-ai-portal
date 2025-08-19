@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { ArrowRight, FileText, Github } from "lucide-react";
 import heroImage from "@/assets/hero-background.jpg";
 import { Helmet } from "react-helmet-async";
-import whitepaperPdf from "@/assets/docs/wavetrack-whitepaper.pdf"; // <-- LA IMPORTACIÓN CORRECTA
 
 const Index = () => {
   const canonical = typeof window !== "undefined" ? window.location.href : "";
@@ -123,7 +122,8 @@ const Index = () => {
             
             <Button asChild variant="outline" className="rounded-full">
               <a
-                href={whitepaperPdf} // <-- EL USO CORRECTO DE LA VARIABLE
+                // Paste the URL you copied from the GitHub Release here
+                href="https://github.com/user-attachments/files/21856583/wavetrack-whitepaper.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Open PDF Whitepaper (new tab)"
