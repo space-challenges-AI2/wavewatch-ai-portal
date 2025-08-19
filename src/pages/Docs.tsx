@@ -46,7 +46,7 @@ const Docs = () => {
               Read our overview of the architecture, models, and recommended deployment patterns.
             </p>
             <a
-              href="/docs/wavetrack-whitepaper.pdf"
+              href="https://github.com/user-attachments/files/21856583/wavetrack-whitepaper.pdf"
               target="_blank"
               rel="noopener noreferrer"
             >
