@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, FileText, Github } from "lucide-react";
 import heroImage from "@/assets/hero-background.jpg";
 import { Helmet } from "react-helmet-async";
+import whitepaperPdf from "@/assets/docs/wavetrack-whitepaper.pdf"; // <-- LA IMPORTACIÓN CORRECTA
 
 const Index = () => {
   const canonical = typeof window !== "undefined" ? window.location.href : "";
@@ -119,18 +120,19 @@ const Index = () => {
         {/* Quick Links */}
         <aside className="container mx-auto px-4 pb-24">
           <div className="flex flex-wrap gap-4">
+            
             <Button asChild variant="outline" className="rounded-full">
-              <Link
-                to="/docs/wavetrack-whitepaper.pdf"
-                reloadDocument
+              <a
+                href={whitepaperPdf} // <-- EL USO CORRECTO DE LA VARIABLE
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Open PDF Whitepaper (new tab)"
               >
                 <FileText className="h-5 w-5" />
                 View PDF Whitepaper
-              </Link>
+              </a>
             </Button>
+            
             <Button asChild variant="outline" className="rounded-full">
               <a
                 href="https://github.com/space-challenges-AI2/sentinel1_sar_ship_detection"
