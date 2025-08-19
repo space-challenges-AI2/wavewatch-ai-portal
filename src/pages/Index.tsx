@@ -122,7 +122,7 @@ const Index = () => {
           <div className="flex flex-wrap gap-4">
             <Button asChild variant="outline" className="rounded-full">
               <a
-                href={whitepaperPdf} // <-- USA LA VARIABLE IMPORTADA AQUÍ
+                href={whitepaperPdf}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Open PDF Whitepaper (new tab)"
