@@ -8,52 +8,45 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Clean Sea & Space Light Theme */
-    --background: 210 100% 98%; /* Soft white */
-    --foreground: 220 30% 15%; /* Deep blue-gray */
+    /* Deep Space Black Theme */
+    --background: 0 0% 3%; /* Deep black */
+    --foreground: 0 0% 98%; /* Pure white */
 
-    --card: 210 100% 99%; /* Pure white cards */
-    --card-foreground: 220 30% 15%;
+    --card: 0 0% 6%; /* Dark cards */
+    --card-foreground: 0 0% 98%;
 
-    --popover: 210 100% 99%;
-    --popover-foreground: 220 30% 15%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 205 85% 55%; /* Ocean blue */
-    --primary-foreground: 210 100% 98%;
+    --primary: 210 100% 65%; /* Bright blue */
+    --primary-foreground: 0 0% 3%;
 
-    --secondary: 195 50% 88%; /* Light sky blue */
-    --secondary-foreground: 220 30% 15%;
+    --secondary: 0 0% 10%; /* Dark gray */
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 220 20% 50%;
+    --muted: 0 0% 8%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 185 75% 65%; /* Soft teal */
-    --accent-foreground: 220 30% 15%;
+    --accent: 210 100% 70%; /* Bright accent blue */
+    --accent-foreground: 0 0% 3%;
 
     --destructive: 5 85% 60%;
-    --destructive-foreground: 210 100% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 210 30% 90%;
-    --input: 210 40% 96%;
-    --ring: 205 85% 55%;
+    --border: 0 0% 15%;
+    --input: 0 0% 8%;
+    --ring: 210 100% 65%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 0 0% 3%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 210 100% 65%;
+    --sidebar-primary-foreground: 0 0% 3%;
+    --sidebar-accent: 0 0% 10%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 210 100% 65%;
   }
 
   .dark {
@@ -104,38 +97,38 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 
-  /* Clean Sea & Space Effects */
+  /* Deep Space Black Effects */
   .ocean-gradient {
     background: linear-gradient(135deg, 
-      hsl(210 100% 98%), 
-      hsl(205 60% 92%), 
-      hsl(195 80% 88%));
+      hsl(0 0% 3%), 
+      hsl(0 0% 5%), 
+      hsl(0 0% 8%));
   }
 
   .space-gradient {
     background: linear-gradient(180deg, 
-      hsl(210 100% 98%) 0%, 
-      hsl(205 40% 94%) 50%,
-      hsl(195 60% 90%) 100%);
+      hsl(0 0% 3%) 0%, 
+      hsl(0 0% 4%) 50%,
+      hsl(0 0% 6%) 100%);
   }
 
   .subtle-grid {
     background-image: 
-      linear-gradient(hsl(205 85% 55% / 0.1) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(205 85% 55% / 0.1) 1px, transparent 1px);
+      linear-gradient(hsl(210 100% 65% / 0.15) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(210 100% 65% / 0.15) 1px, transparent 1px);
     background-size: 40px 40px;
   }
 
   .floating-dots {
     background-image: 
-      radial-gradient(circle at 25% 25%, hsl(185 75% 65% / 0.4) 2px, transparent 2px),
-      radial-gradient(circle at 75% 75%, hsl(205 85% 55% / 0.3) 1px, transparent 1px),
-      radial-gradient(circle at 50% 10%, hsl(195 50% 88% / 0.5) 1.5px, transparent 1.5px);
+      radial-gradient(circle at 25% 25%, hsl(210 100% 70% / 0.3) 2px, transparent 2px),
+      radial-gradient(circle at 75% 75%, hsl(210 100% 65% / 0.2) 1px, transparent 1px),
+      radial-gradient(circle at 50% 10%, hsl(210 100% 75% / 0.25) 1.5px, transparent 1.5px);
     background-size: 120px 120px, 80px 80px, 160px 160px;
   }
 
   .gentle-glow {
-    box-shadow: 0 4px 20px hsl(205 85% 55% / 0.15);
+    box-shadow: 0 4px 20px hsl(210 100% 65% / 0.3);
   }
 
   .soft-shadow {
@@ -145,7 +138,7 @@ All colors MUST be HSL.
   }
 
   .clean-border {
-    border: 1px solid hsl(210 30% 90%);
+    border: 1px solid hsl(0 0% 15%);
   }
 
   /* Subtle Animations */
@@ -189,7 +182,7 @@ All colors MUST be HSL.
   }
 
   .clean-card:hover {
-    box-shadow: 0 8px 25px hsl(205 85% 55% / 0.15);
+    box-shadow: 0 8px 25px hsl(210 100% 65% / 0.25);
     transform: translateY(-2px);
   }
 
@@ -201,7 +194,7 @@ All colors MUST be HSL.
 
   .interactive-button:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px hsl(205 85% 55% / 0.25);
+    box-shadow: 0 4px 12px hsl(210 100% 65% / 0.35);
   }
 
   .interactive-button:active {
