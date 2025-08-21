@@ -52,8 +52,8 @@ const HeroSection = () => {
                   <div className="text-sm text-muted-foreground">Processing Speed</div>
                 </div>
                 <div className="clean-card bg-white/50 backdrop-blur-sm p-6 text-center">
-                  <div className="text-3xl font-light text-primary mb-2">24/7</div>
-                  <div className="text-sm text-muted-foreground">Real-time Analysis</div>
+                  <div className="text-3xl font-light text-primary mb-2">Fast</div>
+                  <div className="text-sm text-muted-foreground">Inference Speed</div>
                 </div>
               </div>
             </div>

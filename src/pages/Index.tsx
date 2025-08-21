@@ -21,7 +21,7 @@ const Index = () => {
         <title>WaveTrack.AI — Maritime AI Vessel Detection</title>
         <meta
           name="description"
-          content="WaveTrack.AI provides cutting-edge AI for maritime vessel detection with real-time analysis and global coverage."
+          content="WaveTrack.AI provides cutting-edge AI for maritime vessel detection from SAR satellite imagery with high-speed inference and global coverage."
         />
         <link rel="canonical" href={canonical} />
         <script type="application/ld+json">{JSON.stringify(orgJsonLd)}</script>
@@ -50,7 +50,7 @@ const Index = () => {
                 </span>
               </h1>
               <p className="text-lg md:text-2xl text-muted-foreground mb-10">
-                Real-time vessel detection and analytics for SAR imagery—precise, reliable, and built to scale.
+                High-speed ship detection from SAR satellite imagery—precise, reliable, and built to scale.
               </p>
               <div className="flex flex-wrap items-center gap-4">
                 <Link to="/detection">
@@ -101,8 +101,8 @@ const Index = () => {
                 <p className="text-muted-foreground">State-of-the-art models fine-tuned for SAR minimize false alarms while maintaining recall.</p>
               </div>
               <div className="p-6 rounded-2xl border border-border bg-card/60 backdrop-blur-md clean-card">
-                <h3 className="text-xl font-semibold mb-2 text-foreground">Real-time Ready</h3>
-                <p className="text-muted-foreground">Low-latency inference designed to scale with continuous maritime operations.</p>
+                <h3 className="text-xl font-semibold mb-2 text-foreground">High-Speed Processing</h3>
+                <p className="text-muted-foreground">Fast inference optimized for efficient analysis of SAR imagery.</p>
               </div>
               <div className="p-6 rounded-2xl border border-border bg-card/60 backdrop-blur-md clean-card">
                 <h3 className="text-xl font-semibold mb-2 text-foreground">Global Coverage</h3>

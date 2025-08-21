@@ -47,7 +47,7 @@ const AboutSection = () => {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground text-center">
-                Our advanced YOLO neural network provides real-time object detection with exceptional accuracy
+                Our advanced YOLO neural network provides high-speed ship detection with exceptional accuracy
               </p>
             </CardContent>
           </Card>
@@ -76,7 +76,7 @@ const AboutSection = () => {
             </p>
             <p className="text-muted-foreground leading-relaxed">
               Our technology combines the power of space-based observation with state-of-the-art 
-              machine learning to deliver accurate, real-time maritime intelligence that was previously 
+              machine learning to deliver accurate, high-speed maritime intelligence that was previously 
               only available to major institutions with significant resources.
             </p>
           </div>
@@ -97,9 +97,9 @@ const AboutSection = () => {
                 </p>
               </div>
               <div className="border-l-4 border-primary pl-4">
-                <h4 className="font-semibold text-accent">Real-time Analysis</h4>
+                <h4 className="font-semibold text-accent">High-Speed Processing</h4>
                 <p className="text-sm text-muted-foreground">
-                  Cloud-based processing enables rapid analysis and delivery of results
+                  Cloud-based processing enables fast inference and efficient analysis of SAR imagery
                 </p>
               </div>
             </div>
