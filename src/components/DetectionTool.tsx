@@ -141,7 +141,7 @@ const DetectionTool = () => {
       });
       
       // Make API call to Python backend
-      const response = await fetch('https://wavetrack-ai-backend.onrender.com/predict/', {
+      const response = await fetch('https://wavetrack-backend-service-847597515847.europe-west1.run.app/predict/', {
         method: 'POST',
         body: formData,
       });
