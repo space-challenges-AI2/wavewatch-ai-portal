@@ -36,9 +36,7 @@ const DetectionTool = () => {
   // Sample images data
   const sampleImages = [
     { id: 1, src: sample1, name: "Open Ocean Ships" },
-    { id: 2, src: sample2, name: "Port Area" },
     { id: 3, src: sample3, name: "Coastal Vessels" },
-    { id: 4, src: sample4, name: "Shipping Route" },
   ];
 
   const handleFileUpload = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -275,7 +273,7 @@ const DetectionTool = () => {
             <p className="text-muted-foreground">Click any sample to start detection</p>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             {sampleImages.map((sample) => (
               <div
                 key={sample.id}
@@ -402,7 +400,7 @@ const DetectionTool = () => {
       {(isProcessing || results) && (
         <div className="w-full max-w-7xl mx-auto mt-16 space-y-8">
           {/* Three Images Display */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Input Image */}
             <Card className="clean-card bg-white/60 backdrop-blur-sm border-2 border-primary/20">
               <CardHeader className="pb-4">
@@ -427,44 +425,6 @@ const DetectionTool = () => {
                 ) : (
                   <div className="w-full h-64 bg-primary/5 rounded-xl border border-primary/20 flex items-center justify-center">
                     <ImageIcon className="h-12 w-12 text-primary/40" />
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Preprocessed Image */}
-            <Card className="clean-card bg-white/60 backdrop-blur-sm border-2 border-accent/20">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-xl font-medium text-accent flex items-center gap-2">
-                  <Waves className="h-5 w-5" />
-                  Preprocessed Image
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {isProcessing ? (
-                  <div className="w-full h-64 bg-accent/5 rounded-xl border border-accent/20 flex items-center justify-center">
-                    <div className="text-center space-y-4">
-                      <div className="relative mx-auto w-16 h-16">
-                        <div className="absolute inset-0 border-4 border-accent/20 rounded-full"></div>
-                        <div className="absolute inset-0 border-t-4 border-accent rounded-full animate-spin"></div>
-                      </div>
-                      <p className="text-accent font-medium">Processing...</p>
-                    </div>
-                  </div>
-                ) : results?.images?.preprocessed ? (
-                  <div className="relative">
-                    <img 
-                      src={`data:image/jpeg;base64,${results.images.preprocessed}`}
-                      alt="Preprocessed SAR" 
-                      className="w-full rounded-xl border border-accent/20 soft-shadow"
-                    />
-                    <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-accent px-3 py-1 rounded-full text-xs font-medium">
-                      Resized & Padded
-                    </div>
-                  </div>
-                ) : (
-                  <div className="w-full h-64 bg-accent/5 rounded-xl border border-accent/20 flex items-center justify-center">
-                    <Waves className="h-12 w-12 text-accent/40" />
                   </div>
                 )}
               </CardContent>
