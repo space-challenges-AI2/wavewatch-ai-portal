@@ -399,9 +399,9 @@ const DetectionTool = () => {
       {/* Results Display */}
       {(isProcessing || results) && (
         <div className="w-full max-w-7xl mx-auto mt-16 space-y-8">
-          {/* Three Images Display */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Input Image */}
+          {/* Images Display - conditionally show processed image */}
+          <div className={`grid grid-cols-1 gap-8 ${outputOptions.processedImage ? 'lg:grid-cols-2' : 'lg:grid-cols-1 max-w-2xl mx-auto'}`}>
+            {/* Input Image - always show */}
             <Card className="clean-card bg-white/60 backdrop-blur-sm border-2 border-primary/20">
               <CardHeader className="pb-4">
                 <CardTitle className="text-xl font-medium text-primary flex items-center gap-2">
@@ -430,47 +430,49 @@ const DetectionTool = () => {
               </CardContent>
             </Card>
 
-            {/* Final Image with Detections */}
-            <Card className="clean-card bg-white/60 backdrop-blur-sm border-2 border-secondary/20">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-xl font-medium text-secondary flex items-center gap-2">
-                  <Ship className="h-5 w-5" />
-                  Final Image with Detections
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {isProcessing ? (
-                  <div className="w-full h-64 bg-secondary/5 rounded-xl border border-secondary/20 flex items-center justify-center">
-                    <div className="text-center space-y-4">
-                      <div className="w-12 h-12 border-2 border-secondary/30 rounded-full border-dashed animate-spin mx-auto"></div>
-                      <p className="text-secondary font-medium">Detecting...</p>
+            {/* Final Image with Detections - only show if processedImage option is selected */}
+            {outputOptions.processedImage && (
+              <Card className="clean-card bg-white/60 backdrop-blur-sm border-2 border-secondary/20">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-xl font-medium text-secondary flex items-center gap-2">
+                    <Ship className="h-5 w-5" />
+                    Final Image with Detections
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {isProcessing ? (
+                    <div className="w-full h-64 bg-secondary/5 rounded-xl border border-secondary/20 flex items-center justify-center">
+                      <div className="text-center space-y-4">
+                        <div className="w-12 h-12 border-2 border-secondary/30 rounded-full border-dashed animate-spin mx-auto"></div>
+                        <p className="text-secondary font-medium">Detecting...</p>
+                      </div>
                     </div>
-                  </div>
-                ) : results?.images?.final ? (
-                  <div className="relative">
-                    <img 
-                      src={`data:image/jpeg;base64,${results.images.final}`}
-                      alt="Final with detections" 
-                      className="w-full rounded-xl border border-secondary/20 soft-shadow"
-                    />
-                    <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-secondary px-3 py-1 rounded-full text-xs font-medium">
-                      Detection Overlay
+                  ) : results?.images?.final ? (
+                    <div className="relative">
+                      <img 
+                        src={`data:image/jpeg;base64,${results.images.final}`}
+                        alt="Final with detections" 
+                        className="w-full rounded-xl border border-secondary/20 soft-shadow"
+                      />
+                      <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-secondary px-3 py-1 rounded-full text-xs font-medium">
+                        Detection Overlay
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <div className="w-full h-64 bg-secondary/5 rounded-xl border border-secondary/20 flex items-center justify-center">
-                    <Ship className="h-12 w-12 text-secondary/40" />
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+                  ) : (
+                    <div className="w-full h-64 bg-secondary/5 rounded-xl border border-secondary/20 flex items-center justify-center">
+                      <Ship className="h-12 w-12 text-secondary/40" />
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
           </div>
 
-          {/* Analysis Results */}
-          {!isProcessing && results && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-              {/* Ship Count */}
-              {results.count_result !== undefined && (
+          {/* Analysis Results - only show selected options */}
+          {!isProcessing && results && (outputOptions.shipCount || outputOptions.detectionProbability) && (
+            <div className={`grid grid-cols-1 gap-8 mt-8 ${(outputOptions.shipCount && outputOptions.detectionProbability) ? 'md:grid-cols-2' : 'max-w-2xl mx-auto'}`}>
+              {/* Ship Count - only show if selected */}
+              {outputOptions.shipCount && results.count_result !== undefined && (
                 <Card className="clean-card bg-primary/5 border-2 border-primary/20">
                   <CardHeader className="pb-4">
                     <CardTitle className="text-lg font-medium text-primary flex items-center gap-2">
@@ -487,8 +489,8 @@ const DetectionTool = () => {
                 </Card>
               )}
 
-              {/* Detection Probabilities */}
-              {results.probabilities_result && results.probabilities_result.length > 0 && (
+              {/* Detection Probabilities - only show if selected */}
+              {outputOptions.detectionProbability && results.probabilities_result && results.probabilities_result.length > 0 && (
                 <Card className="clean-card bg-accent/5 border-2 border-accent/20">
                   <CardHeader className="pb-4">
                     <CardTitle className="text-lg font-medium text-accent flex items-center gap-2">
